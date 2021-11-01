@@ -84,39 +84,51 @@ export default function App() {
         <section>
           <div className="movie-form">
             <input
-              style = {inputStyles}
+              style={inputStyles}
               value={movieName}
               onChange={(event) => setMovieName(event.target.value)}
               placeholder="Enter a movie name"
             />
             <input
-            style = {inputStyles}
+              style={inputStyles}
               value={moviePoster}
               onChange={(event) => setMoviePoster(event.target.value)}
               placeholder="Enter url of movie poster"
             />
             <input
-            style = {inputStyles}
+              style={inputStyles}
               value={movieDescription}
               onChange={(event) => setMovieDescription(event.target.value)}
               placeholder="Enter description of movie"
             />
-            <button 
-            style = {buttonStyles}
-            onClick = {addMovie}
-            >Add Movie</button>
+            <button style={buttonStyles} onClick={addMovie}>
+              Add Movie
+            </button>
             {/* <AddMovie /> */}
           </div>
 
           <div className="App">
-            {movies.map((user, index) => (
-              <Msg
-                key={index}
-                name={user.name}
-                image={user.image}
-                description={user.description}
-              />
-            ))}
+            {movies.map((user, index) => {
+              return (
+                <div>
+                  <button 
+                    onClick = {() => {
+                    const copyMovies = [...movies];
+                    console.log("deleting ", index);
+                    const removeIdx = index;
+                    // below line new set of movie list in display "setMovies" does that.
+                    setMovies(movies.filter((mv, idx) => idx != removeIdx ));
+                    }}>
+                    Delete</button>
+                  <Msg
+                    key={index}
+                    name={user.name}
+                    image={user.image}
+                    description={user.description}
+                  />
+                </div>
+              );
+            })}
             {/* <Counter/> */}
             {/* <Color/>
             <ColorBox/> */}
