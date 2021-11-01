@@ -169,14 +169,17 @@ export default function App() {
 
     function Msg({ name,image,description }) {
       const [show,setShow] = useState(false);
-      const styles = {display: show ? "block" : "none"};
+      // since we are using condional render below line is not needed   -------> CONDITIONAL RENDER
+      // const styles = {display: show ? "block" : "none"};
       return (
         <div>
           <img src={image} height="250" alt={name} />
           <Counter />
           <h1 className="name">{name}</h1>
           <button onClick={() => setShow(!show)}>Show Description</button>
-          <p style={styles}>{description}</p>
+          {/* <p style={styles}>{description}</p>  */}
+          {/* CONDITIONAL RENDER is below */}
+          {show ? <p>{description}</p> : ""}
         </div>
       );
     }
