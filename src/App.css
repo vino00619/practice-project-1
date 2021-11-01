@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  gap: 20px;
 }
 
 .App-logo {
@@ -35,4 +36,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.movie-form{
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  text-align: center;
+  align-items: center;
 }

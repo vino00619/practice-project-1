@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 
 export default function App() {
   
-    const users = [
+    const INITIAL_MOVIES = [
       {
         name: "Schindler's List",
         image:
@@ -57,18 +57,71 @@ export default function App() {
       }
     ];
     
-    
+      const [movies, setMovies] = useState(INITIAL_MOVIES);
+      const [movieName,setMovieName] = useState("");
+      const [moviePoster,setMoviePoster] = useState("");
+      const [movieDescription,setMovieDescription] = useState("");
+      const addMovie = () => {
+        const newMovie = {
+          name:movieName,
+          image:moviePoster,
+          description:movieDescription
+        };
+        setMovies([...movies, newMovie])
+      };
+
+      const inputStyles = {
+        width:"30rem",
+        margin: "0px 5px 5px 0px", 
+        fontSize: "1.5rem"
+      };
+      const buttonStyles = {
+        width:"305px",
+        marginBottom: "20px",
+        fontSize: "1.5rem"
+      };
       return (
-        <div className="App">
-          <AddMovie />
-          {users.map((user, index) => (
-          <Msg key={index} name={user.name} image={user.image} description={user.description}/>
-          ))}
-          {/* <Counter/> */}
-          {/* <Color/>
-          <ColorBox/> */}
-          
-        </div>
+        <section>
+          <div className="movie-form">
+            <input
+              style = {inputStyles}
+              value={movieName}
+              onChange={(event) => setMovieName(event.target.value)}
+              placeholder="Enter a movie name"
+            />
+            <input
+            style = {inputStyles}
+              value={moviePoster}
+              onChange={(event) => setMoviePoster(event.target.value)}
+              placeholder="Enter url of movie poster"
+            />
+            <input
+            style = {inputStyles}
+              value={movieDescription}
+              onChange={(event) => setMovieDescription(event.target.value)}
+              placeholder="Enter description of movie"
+            />
+            <button 
+            style = {buttonStyles}
+            onClick = {addMovie}
+            >Add Movie</button>
+            {/* <AddMovie /> */}
+          </div>
+
+          <div className="App">
+            {movies.map((user, index) => (
+              <Msg
+                key={index}
+                name={user.name}
+                image={user.image}
+                description={user.description}
+              />
+            ))}
+            {/* <Counter/> */}
+            {/* <Color/>
+            <ColorBox/> */}
+          </div>
+        </section>
       );
     }
     
@@ -115,16 +168,17 @@ export default function App() {
     }
 
     function Msg({ name,image,description }) {
-      
+      const [show,setShow] = useState(false);
+      const styles = {display: show ? "block" : "none"};
       return (
         <div>
-          <img src={image} height="250" alt={name}/>
-          <Counter/>
-          <p>{description}</p>
-          <h1 className="name">{name}</h1>;
-          
-      </div>
-      )
+          <img src={image} height="250" alt={name} />
+          <Counter />
+          <h1 className="name">{name}</h1>
+          <button onClick={() => setShow(!show)}>Show Description</button>
+          <p style={styles}>{description}</p>
+        </div>
+      );
     }
 
     function Counter(){
